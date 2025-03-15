@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "movies",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -36,9 +36,7 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/Inter-Black.otf"
-          ]
+          "fonts": ["./assets/fonts/Inter-Black.otf"]
         }
       ],
       "expo-asset"
