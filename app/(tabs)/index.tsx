@@ -7,6 +7,7 @@ import { images } from "@/constants/images";
 
 // components
 import SearchBar from "@/components/SearchBar";
+import MovieCard from "@/components/MovieCard";
 
 // services
 import useFetch from "@/services/useFetch";
@@ -22,7 +23,7 @@ export default function Index() {
   } = useFetch(() => fetchMovies({ query: "" }));
 
   return (
-    <View className="flex-1 bg-gray-800 px-2">
+    <View className="flex-1 bg-gray-800">
       <Image source={images.bg} className="absolute w-full z-0" />
       {moviesloading ? (
         <ActivityIndicator
@@ -54,9 +55,7 @@ export default function Index() {
               </Text>
             </>
           }
-          renderItem={({ item }) => (
-            <Text className="text-white text-sm">{item.title}</Text>
-          )}
+          renderItem={({ item }) => <MovieCard {...item} />}
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
           columnWrapperStyle={{
