@@ -22,7 +22,7 @@ export default function Index() {
   } = useFetch(() => fetchMovies({ query: "" }));
 
   return (
-    <View className="flex-1 bg-gray-800">
+    <View className="flex-1 bg-gray-800 px-2">
       <Image source={images.bg} className="absolute w-full z-0" />
       {moviesloading ? (
         <ActivityIndicator
@@ -57,6 +57,16 @@ export default function Index() {
           renderItem={({ item }) => (
             <Text className="text-white text-sm">{item.title}</Text>
           )}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={3}
+          columnWrapperStyle={{
+            justifyContent: "flex-start",
+            gap: 20,
+            paddingRight: 5,
+            marginBottom: 10,
+          }}
+          className="mt-2 pb-32"
+          scrollEnabled={false}
         />
       )}
     </View>
