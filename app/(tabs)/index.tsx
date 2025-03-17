@@ -1,12 +1,5 @@
 import { useRouter } from "expo-router";
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  View,
-  Text,
-  FlatList,
-} from "react-native";
+import { ActivityIndicator, Image, View, Text, FlatList } from "react-native";
 
 // constants
 import { icons } from "@/constants/icons";
@@ -31,42 +24,41 @@ export default function Index() {
   return (
     <View className="flex-1 bg-gray-800">
       <Image source={images.bg} className="absolute w-full z-0" />
-      <ScrollView
-        className="flex-1 px-5"
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
-      >
-        <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
-
-        {moviesloading ? (
-          <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            className="mt-10 self-center"
-          />
-        ) : movieserror ? (
-          <Text>Error: {movieserror?.message}</Text>
-        ) : (
-          <>
-            <View className="flex-1 mt-5">
-              <SearchBar
-                onPress={() => router.push("/search")}
-                placeholder="Search for movies"
-              />
-            </View>
-            <Text className="text-lg font-bold text-white mt-5 mb-3">
-              Latest Movies
-            </Text>
-
-            <FlatList
-              data={movie}
-              renderItem={({ item }) => (
-                <Text className="text-white text-sm">{item.title}</Text>
-              )}
-            />
-          </>
-        )}
-      </ScrollView>
+      {moviesloading ? (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          className="mt-10 self-center"
+        />
+      ) : movieserror ? (
+        <Text>Error: {movieserror?.message}</Text>
+      ) : (
+        <FlatList
+          data={movie}
+          contentContainerStyle={{
+            paddingTop: 20,
+            paddingHorizontal: 5,
+            paddingBottom: 10,
+          }}
+          ListHeaderComponent={
+            <>
+              <Image source={icons.logo} className="w-12 h-10 mb-5 mx-auto" />
+              <View className="flex-1 mt-5">
+                <SearchBar
+                  onPress={() => router.push("/search")}
+                  placeholder="Search for movies"
+                />
+              </View>
+              <Text className="text-lg font-bold text-white mt-5 mb-3">
+                Latest Movies
+              </Text>
+            </>
+          }
+          renderItem={({ item }) => (
+            <Text className="text-white text-sm">{item.title}</Text>
+          )}
+        />
+      )}
     </View>
   );
 }
