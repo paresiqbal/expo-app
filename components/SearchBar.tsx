@@ -5,11 +5,16 @@ import { icons } from "@/constants/icons";
 interface Props {
   placeholder: string;
   onPress?: () => void;
-  value: string;
-  onChangeText: (text: string) => void;
+  value?: string;
+  onChangeText?: (text: string) => void;
 }
 
-const SearchBar = ({ placeholder, onPress, value, onChangeText }: Props) => {
+const SearchBar = ({
+  placeholder,
+  onPress,
+  value = "",
+  onChangeText = () => {},
+}: Props) => {
   return (
     <View className="flex-row items-center bg-gray-400 rounded-full px-5 py-4">
       <Image
