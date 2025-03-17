@@ -51,7 +51,7 @@ export default function Index() {
             }}
             ListHeaderComponent={
               <>
-                <Image source={icons.logo} className="w-12 h-10 mb-5 mx-auto" />
+                <Image source={icons.logo} className="w-12 h-10 mb-8 mx-auto" />
                 <View className="flex-1 mt-5">
                   <SearchBar
                     onPress={() => router.push("/search")}
