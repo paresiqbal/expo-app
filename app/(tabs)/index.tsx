@@ -19,9 +19,15 @@ import MovieCard from "@/components/MovieCard";
 // services
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
+import { getTrendingMovies } from "@/services/appwrite";
 
 export default function Index() {
   const router = useRouter();
+  const {
+    data: trendingmovies,
+    loading: trendingloading,
+    error: trendingerror,
+  } = useFetch(getTrendingMovies);
 
   const {
     data: movie,
@@ -33,14 +39,14 @@ export default function Index() {
     <View className="flex-1 bg-gray-800">
       <Image source={images.bg} className="absolute w-full z-0" />
       <ScrollView>
-        {moviesloading ? (
+        {moviesloading || trendingloading ? (
           <ActivityIndicator
             size="large"
             color="#0000ff"
             className="mt-10 self-center"
           />
-        ) : movieserror ? (
-          <Text>Error: {movieserror?.message}</Text>
+        ) : movieserror || trendingerror ? (
+          <Text>Error: {movieserror?.message || trendingerror?.message}</Text>
         ) : (
           <FlatList
             data={movie}
@@ -57,6 +63,26 @@ export default function Index() {
                     onPress={() => router.push("/search")}
                     placeholder="Search for movies"
                   />
+                  {movie && (
+                    <View className="mt-10">
+                      <Text className="text-lg text-white font-bold mb-3">
+                        Trending Movies
+                      </Text>
+                      <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        ItemSeparatorComponent={() => <View className="w-4" />}
+                        data={movie.slice(0, 5)}
+                        className="mb-4 mt-3"
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item, index }) => (
+                          <Text className="text-white text-sm">
+                            {item.title}
+                          </Text>
+                        )}
+                      />
+                    </View>
+                  )}
                 </View>
                 <Text className="text-lg font-bold text-white mt-5 mb-3">
                   Latest Movies
