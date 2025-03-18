@@ -39,12 +39,12 @@ const Search = () => {
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  useEffect(() => {
-    // Call updateSearchCount only if there are results
-    if (movies?.length! > 0 && movies?.[0]) {
-      updateSearchCount(searchQuery, movies[0]);
-    }
-  }, [movies]);
+  // useEffect(() => {
+  //   // Call updateSearchCount only if there are results
+  //   if (movies?.length! > 0 && movies?.[0]) {
+  //     updateSearchCount(searchQuery, movies[0]);
+  //   }
+  // }, [movies]);
 
   return (
     <View className="flex-1 bg-black">

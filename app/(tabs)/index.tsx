@@ -19,16 +19,11 @@ import MovieCard from "@/components/MovieCard";
 // services
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
-import { getTrendingMovies } from "@/services/appwrite";
+// import { getTrendingMovies } from "@/services/appwrite"
 import TrendingCard from "@/components/TrendingCard";
 
 export default function Index() {
   const router = useRouter();
-  const {
-    data: trendingmovies,
-    loading: trendingloading,
-    error: trendingerror,
-  } = useFetch(getTrendingMovies);
 
   const {
     data: movie,
@@ -40,14 +35,14 @@ export default function Index() {
     <View className="flex-1 bg-gray-800">
       <Image source={images.bg} className="absolute w-full z-0" />
       <ScrollView>
-        {moviesloading || trendingloading ? (
+        {moviesloading ? (
           <ActivityIndicator
             size="large"
             color="#0000ff"
             className="mt-10 self-center"
           />
-        ) : movieserror || trendingerror ? (
-          <Text>Error: {movieserror?.message || trendingerror?.message}</Text>
+        ) : movieserror ? (
+          <Text>Error: {movieserror?.message}</Text>
         ) : (
           <FlatList
             data={movie}
